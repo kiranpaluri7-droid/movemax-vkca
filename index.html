@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0d">
+<title>MoveMax — VKCA Chess</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand-mark">♛</div>
+    <div><div class="brand">MOVEMAX</div><div class="academy">V King's Chess Academy</div></div>
+    <button id="themeBtn" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">◐</button>
+  </header>
+  <nav class="tabs" aria-label="App sections">
+    <button class="tab active" data-view="play">Play</button>
+    <button class="tab" data-view="setup">Custom Setup</button>
+    <button class="tab" data-view="analysis">Analysis</button>
+  </nav>
+  <main>
+    <section id="playView" class="view">
+      <div class="player-card"><span class="avatar">♟</span><div><b id="topName">Black</b><small id="topSub">Opponent / Black pieces</small></div><span class="clock" id="blackClock">10:00</span></div>
+      <div class="board-wrap"><div id="board" class="board" aria-label="Chessboard"></div></div>
+      <div class="player-card"><span class="avatar">♙</span><div><b id="bottomName">White</b><small id="bottomSub">You / White pieces</small></div><span class="clock" id="whiteClock">10:00</span></div>
+      <div id="status" class="status" role="status">White to move</div>
+      <div class="toolbar">
+        <button id="undoBtn" class="btn secondary">↶ Back</button>
+        <button id="redoBtn" class="btn secondary">Forward ↷</button>
+        <button id="flipBtn" class="btn secondary">⇅ Flip</button>
+        <button id="resetBtn" class="btn primary">Restart</button>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Move History <button id="copyPgnBtn" class="text-btn">Copy PGN</button></div>
+        <div id="moves" class="moves">No moves yet</div>
+      </div>
+    </section>
+    <section id="setupView" class="view hidden">
+      <div class="section-heading"><h2>Custom Setup</h2><p>Place pieces, validate the position, then play or analyse it.</p></div>
+      <div class="board-wrap"><div id="setupBoard" class="board" aria-label="Custom setup chessboard"></div></div>
+      <div class="panel">
+        <div class="panel-title">Piece tray</div>
+        <div id="pieceTray" class="piece-tray"></div>
+        <div class="toolbar">
+          <button id="clearBtn" class="btn secondary">Clear board</button>
+          <button id="standardBtn" class="btn secondary">Reset pieces</button>
+          <button id="flipSetupBtn" class="btn secondary">Flip</button>
+        </div>
+        <label class="field-label" for="sideToMove">Side to move</label>
+        <select id="sideToMove"><option value="w">White</option><option value="b">Black</option></select>
+        <label class="field-label" for="fenBox">FEN position</label>
+        <textarea id="fenBox" rows="3" spellcheck="false" placeholder="Paste a FEN position here"></textarea>
+        <div class="toolbar">
+          <button id="importFenBtn" class="btn secondary">Import FEN</button>
+          <button id="exportFenBtn" class="btn secondary">Export FEN</button>
+          <button id="validateBtn" class="btn secondary">Validate</button>
+        </div>
+        <div id="setupStatus" class="status">Select a piece, then tap a square to place it. Select the eraser to remove pieces.</div>
+        <div class="toolbar">
+          <button id="startSetupBtn" class="btn primary">Use Position in Play</button>
+          <button id="analyseSetupBtn" class="btn secondary">Open in Analysis</button>
+        </div>
+      </div>
+    </section>
+    <section id="analysisView" class="view hidden">
+      <div class="section-heading"><h2>Analysis</h2><p>Explore legal moves and inspect the current position.</p></div>
+      <div class="board-wrap"><div id="analysisBoard" class="board" aria-label="Analysis chessboard"></div></div>
+      <div id="analysisStatus" class="status">Select a piece and play a legal move.</div>
+      <div class="toolbar">
+        <button id="analysisUndoBtn" class="btn secondary">↶ Back</button>
+        <button id="analysisRedoBtn" class="btn secondary">Forward ↷</button>
+        <button id="analysisFlipBtn" class="btn secondary">⇅ Flip</button>
+        <button id="analysisResetBtn" class="btn secondary">Restart line</button>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Position tools</div>
+        <label class="field-label" for="analysisFen">Current FEN</label>
+        <textarea id="analysisFen" rows="3" readonly></textarea>
+        <div class="toolbar"><button id="refreshAnalysisFen" class="btn secondary">Refresh FEN</button><button id="analysisToSetup" class="btn secondary">Edit Position</button></div>
+        <p class="note">Stockfish engine analysis is not included in this core build yet. The board and move rules are handled by the chess rules library; no engine evaluations are fabricated.</p>
+      </div>
+    </section>
+  </main>
+  <footer>MoveMax · VKCA · Core chess foundation</footer>
+</div>
+<div id="promotionModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="promotionTitle">
+  <div class="modal-card"><h3 id="promotionTitle">Choose promotion piece</h3><p>Promote your pawn to:</p><div id="promotionChoices" class="promotion-choices"></div></div>
+</div>
+<div id="toast" class="toast" role="status"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
